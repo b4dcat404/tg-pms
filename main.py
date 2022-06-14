@@ -7,8 +7,8 @@ headers = {
    "Accept": "application/json"
 }
 all_keys = {}
-
-bot = telebot.TeleBot('')
+#add your tg telegram API key from @BotFather
+bot = telebot.TeleBot('YOUR_TELEGRAM_API_KEY')
 @bot.message_handler(commands=["start", "help"])
 def send_welcome(message):
     bot.send_message(message.chat.id, 'Привет, я работаю ещё не в полную силу\n'
@@ -38,6 +38,7 @@ def addapi(message):
                                                      '&name=Server%20Token&key='
                                             '' + all_keys[message.chat.id]["api_key"] + ')', parse_mode='MarkdownV2')
     bot.register_next_step_handler(setup_api, addtokenmessage)
+    #
 
 def addtokenmessage(message):
     all_keys[message.chat.id]["token"] = message.text
