@@ -8,7 +8,7 @@ headers = {
 }
 all_keys = {}
 #add your tg telegram API key from @BotFather
-bot = telebot.TeleBot('YOUR_TELEGRAM_API_KEY')
+bot = telebot.TeleBot('TELEGRAM_BOT_FATHER_API_KEY')
 @bot.message_handler(commands=["start", "help"])
 def send_welcome(message):
     bot.send_message(message.chat.id, 'Привет, я работаю ещё не в полную силу\n'
