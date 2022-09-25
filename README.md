@@ -239,7 +239,7 @@ _Гайд по использованию бота можно найти в [д�
 [stars-url]: https://github.com/b4dcat404/trello-tg-bot/stargazers
 [issues-shield]: https://img.shields.io/github/issues/b4dcat404/trello-tg-bot.svg?style=for-the-badge
 [issues-url]: https://github.com/b4dcat404/trello-tg-bot/issues
-[license-shield]: https://img.shields.io/github/license/b4dcat404/trello-tg-bot.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/b4dcat404/Trello-TG-bot.svg?style=for-the-badge
 [license-url]: https://github.com/b4dcat404/Trello-TG-bot/blob/main/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/company/85617305
