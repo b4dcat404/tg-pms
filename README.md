@@ -256,7 +256,6 @@ _Гайд по использованию бота можно найти в [д�
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/b4dcat404/trello-tg-bot.svg?style=for-the-badge
