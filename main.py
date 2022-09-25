@@ -11,15 +11,22 @@ th = TrelloHelper()
 all_keys = {}
 
 # add your tg telegram API key from @BotFather
-bot = telebot.TeleBot('###')
+bot = telebot.TeleBot('###HERE###')
 
 # Дефолтный старт
 @bot.message_handler(commands=["start", "help"])
 def send_welcome(message):
     bot.send_message(message.chat.id, 'Привет, я работаю ещё не в полную силу\n'
                                       'Но меня можно тестировать \n'
-                                      'Я уже могу создавать карточки в доске Trello\n'
-                                      'Что бы начать введи /setup')
+                                      'Я уже могу создавать карточки в доске Trello\n', parse_mode='MarkdownV2')
+    bot.send_message(message.chat.id, '*Команды*\n\n'
+                                      '/start & /help - Информация о боте и командах\n'
+                                      '/setup - Установка подключения бота с Trello\n'
+                                      '/status - Проверка подключения к Trello и вывод API ключей\n'
+                                      '/reset - Сброс всех данных', parse_mode='Markdown')
+    bot.send_message(message.chat.id, 'После настройки подключения, все полученные ботом сообщения будут создавать '
+                                      'карточки в Trello\n\n'
+                                      'В данный момент бот не обрабатывает сообщения с изображениями', parse_mode='MarkdownV2')
 
 # Подключение к Trello
 @bot.message_handler(commands=["setup"])
@@ -90,6 +97,7 @@ def status(message):
                                       'Список: ' + '||' + query_api[0]["board"] + '||'
                                        '', parse_mode='MarkdownV2')
 
+# Сброс настроек подключения к трелло
 @bot.message_handler(commands=["reset"])
 def reset(message):
     tg_id = message.chat.id
@@ -103,6 +111,7 @@ def reset(message):
 
 @bot.message_handler(func=lambda message: True)
 def handle_text(message):
+    # Проверка на наличиие caht_id в БД
     if message.chat.id not in db.get_items():
         bot.send_message(message.chat.id, 'Сначала подключи Trello - /setup')
     else:
@@ -122,16 +131,14 @@ def handle_text(message):
         th.url,
         params=query
         )
+        # Проверка на верный запрос, что бы не ломали бота кривыми API ключами
+        # Нужно добавить ссылку полученную в ответе (ShortURL) в слово "Карточка"
         if response.status_code == 200:
-            # Проверка на верный запрос, что бы не ломали бота кривыми API ключами
-            # Нужно добавить ссылку полученную в ответе (ShortURL) в слово "Карточка"
             bot.send_message(message.chat.id, 'Карточка создана')
-
+            print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
         else:
             bot.send_message(message.chat.id, 'Неверно указаны данные\n'
                                               'Используй /reset, что бы настроить подлключение к Trello заново')
 
-
-            # print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
 
 bot.polling(none_stop=True, interval=0)
