@@ -11,7 +11,7 @@ th = TrelloHelper()
 all_keys = {}
 
 # add your tg telegram API key from @BotFather
-bot = telebot.TeleBot('5558114835:AAGiSl7iE5oU4xN9A9_tfNTm_MOhM-XeJmc')
+bot = telebot.TeleBot('###')
 
 # Дефолтный старт
 @bot.message_handler(commands=["start", "help"])
