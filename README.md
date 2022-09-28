@@ -231,13 +231,13 @@ _Гайд по использованию бота можно найти в [д�
 <!-- CONTACT -->
 ## Котакты
 
-**Dev Team Twitter** - [Twitter @b4dcat404](https://twitter.com/b4dcat404) 
+**Dev Team** - [Twitter @b4dcat404](https://twitter.com/b4dcat404) 
 
 **Разработчик** - [Twitter @vi_dev0](https://twitter.com/vi_dev0)
 
-**Поддержка** - [Telegram @b4dcat404_support](https://t.me/b4dcat404_support)
+**Поддержка** - [Telegram @b4dcat404_support](https://t.me/b4dcat404_support_bot)
 
-**Новостной канал TG** - [Telegram @b4dcat404](https://t.me/b4dcat404)
+**Новостной канал** - [Telegram @b4dcat404](https://t.me/b4dcat404)
 
 **Ссылка на проект:** [https://github.com/b4dcat404/trello-tg-bot](https://github.com/b4dcat404/trello-tg-bot)
 
