@@ -3,6 +3,11 @@ import json
 import requests
 from db import DBHelper
 from trello import TrelloHelper
+from datetime import datetime, date
+
+
+now = datetime.now()
+time = now.strftime("%H:%M:%S") + '  ' + str(date.today())
 
 db = DBHelper()
 db.setup()
@@ -11,8 +16,8 @@ th = TrelloHelper()
 all_keys = {}
 
 # add your tg telegram API key from @BotFather
-bot = telebot.TeleBot('###HERE###')
-
+bot = telebot.TeleBot('HERE')
+bot_credits = "\n\n\n*Карточка создана с помощью бота [@trello_bdct_bot](https://t.me/trello_bdct_bot)*\n"
 # Дефолтный старт
 @bot.message_handler(commands=["start", "help"])
 def send_welcome(message):
@@ -118,10 +123,35 @@ def handle_text(message):
         tg_id = message.chat.id
         query_api = db.get_api(tg_id)
         name = "%.25s"%message.text
-        desc = message.text
+        message_text = message.text
+        desc_urls = []
+        desc_urls_str = ""
+        desc_url = message.entities
+        if message.forward_from_chat != None:
+            forward = "*Переслано от [@" + message.forward_from_chat.username + "](https://t.me/" + message.forward_from_chat.username + ")*\n"
+        elif message.forward_from != None:
+            forward = "*Переслано от [@" + message.forward_from.username + "](https://t.me/" + message.forward_from.username + ")*\n"
+        else:
+            forward = ''
+
+        # forward = message_from + message_from_chat
+        # Прогоняем все ссылки через цикл, и добавляем в список
+        if desc_url != None:
+            for item in desc_url:
+                desc_urls.append(item.url)
+            for i in desc_urls:
+                desc_urls_str += str(i) + "\n"
+        else:
+            desc_urls_str = '\nСсылок нет'
+        print(message)
+        # print()
+        print(forward)
+        desc = forward + "Ваше сообщение\n----------------\n\n" + message_text + "\n\n**URLs:** \n" + desc_urls_str
+        source_url = ""
         query = {
             'name': name,
             'desc': desc,
+            'urlSource' : source_url,
             'idList': query_api[0]["board"],
             'key': query_api[0]["api_key"],
             'token': query_api[0]["token"],
@@ -133,9 +163,12 @@ def handle_text(message):
         )
         # Проверка на верный запрос, что бы не ломали бота кривыми API ключами
         # Нужно добавить ссылку полученную в ответе (ShortURL) в слово "Карточка"
+        url = json.loads(response.text)
         if response.status_code == 200:
-            bot.send_message(message.chat.id, 'Карточка создана')
-            print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
+            bot.send_message(message.chat.id,   '✅*Карточка создана*✅\n' +
+                                                '📌*Название:* ' + name +
+                                                '\n🌐*Ссылка:* ' + url["shortUrl"] +
+                                                '\n📆*Время создания:* ' + time, parse_mode='Markdown')
         else:
             bot.send_message(message.chat.id, 'Неверно указаны данные\n'
                                               'Используй /reset, что бы настроить подлключение к Trello заново')
