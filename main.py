@@ -146,7 +146,7 @@ def handle_text(message):
         print(message)
         # print()
         print(forward)
-        desc = forward + "Ваше сообщение\n----------------\n\n" + message_text + "\n\n**URLs:** \n" + desc_urls_str
+        desc = forward + "Ваше сообщение\n----------------\n\n" + message_text + "\n\n**URLs:** \n" + desc_urls_str + ' ' + '\n📆*Время создания:* ' + time + bot_credits
         source_url = ""
         query = {
             'name': name,
