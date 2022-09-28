@@ -42,7 +42,7 @@
     <a href="https://github.com/b4dcat404/trello-tg-bot/README.md"><strong>Документация »</strong></a>
     <br />
     <br />
-    <a href="https://t.me/dostavka82_bot">Демо</a>
+    <a href="https://t.me/trello_bdct_bot">Демо</a>
     ·
     <a href="https://github.com/b4dcat404/Trello-TG-bot/issues">Сообщить о баге</a>
     ·
