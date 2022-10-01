@@ -16,7 +16,7 @@ th = TrelloHelper()
 all_keys = {}
 
 # add your tg telegram API key from @BotFather
-bot = telebot.TeleBot('HERE')
+bot = telebot.TeleBot('***HERE***')
 bot_credits = "\n\n\n*Карточка создана с помощью бота [@trello_bdct_bot](https://t.me/trello_bdct_bot)*\n"
 # Дефолтный старт
 @bot.message_handler(commands=["start", "help"])
@@ -31,7 +31,7 @@ def send_welcome(message):
                                       '/reset - Сброс всех данных', parse_mode='Markdown')
     bot.send_message(message.chat.id, 'После настройки подключения, все полученные ботом сообщения будут создавать '
                                       'карточки в Trello\n\n'
-                                      'В данный момент бот не обрабатывает сообщения с изображениями', parse_mode='MarkdownV2')
+                                      'В данный момент бот не обрабатывает сообщения с медиафайлами', parse_mode='MarkdownV2')
 
 # Подключение к Trello
 @bot.message_handler(commands=["setup"])
@@ -99,8 +99,7 @@ def status(message):
         bot.send_message(message.chat.id, 'Твои ключи:\n'
                                       'API: ' + '||' + query_api[0]["api_key"] + '||' + '\n'
                                       'Токен: ' + '||' + query_api[0]["token"] + '||' + '\n'
-                                      'Список: ' + '||' + query_api[0]["board"] + '||'
-                                       '', parse_mode='MarkdownV2')
+                                      'Список: ' + '||' + query_api[0]["board"] + '||', parse_mode='MarkdownV2')
 
 # Сброс настроек подключения к трелло
 @bot.message_handler(commands=["reset"])
@@ -108,8 +107,7 @@ def reset(message):
     tg_id = message.chat.id
     if message.chat.id in db.get_items():
         db.delete_item(tg_id)
-        bot.send_message(message.chat.id, 'Настройки сброшены\n'
-                                      'Подключи Trello - /setup')
+        bot.send_message(message.chat.id, 'Настройки сброшены\nПодключи Trello - /setup')
     else:
         bot.send_message(message.chat.id, 'Сначала подключи Trello - /setup')
 
@@ -133,8 +131,6 @@ def handle_text(message):
             forward = "*Переслано от [@" + message.forward_from.username + "](https://t.me/" + message.forward_from.username + ")*\n"
         else:
             forward = ''
-
-        # forward = message_from + message_from_chat
         # Прогоняем все ссылки через цикл, и добавляем в список
         if desc_url != None:
             for item in desc_url:
@@ -144,8 +140,6 @@ def handle_text(message):
         else:
             desc_urls_str = '\nСсылок нет'
         print(message)
-        # print()
-        print(forward)
         desc = forward + "Ваше сообщение\n----------------\n\n" + message_text + "\n\n**URLs:** \n" + desc_urls_str + ' ' + '\n📆*Время создания:* ' + time + bot_credits
         source_url = ""
         query = {

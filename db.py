@@ -7,7 +7,7 @@ class DBHelper:
         self.cur = self.conn.cursor()
 
     def setup(self):
-        stmt = "CREATE TABLE IF NOT EXISTS tg1 (description text)" # Создаем таблицу если ее нет
+        stmt = "CREATE TABLE IF NOT EXISTS tg1 (id	INTEGER UNIQUE,chat_id	INTEGER UNIQUE,api_key	TEXT,token	TEXT,board	TEXT,PRIMARY KEY(id AUTOINCREMENT))" # Создаем таблицу если ее нет
         self.conn.execute(stmt)
         self.conn.commit()
 
@@ -19,25 +19,6 @@ class DBHelper:
 
     def trello_check(self, chatid): # Проверяем верный ли ключи API
         stmt = "SELECT chat_id FROM tg1"
-
-
-    # def add_api(self, apikey):
-    #     stmt = "INSERT INTO tg1 (api_key) VALUES (?)"
-    #     args = (apikey,)
-    #     self.conn.execute(stmt, args)
-    #     self.conn.commit()
-    #
-    # def add_token(self, token):
-    #     stmt = "INSERT INTO tg1 (token) VALUES (?)"
-    #     args = (token,)
-    #     self.conn.execute(stmt, args)
-    #     self.conn.commit()
-    #
-    # def add_board(self, board):
-    #     stmt = "INSERT INTO tg1 (board) VALUES (?)"
-    #     args = (board,)
-    #     self.conn.execute(stmt, args)
-    #     self.conn.commit()
 
     def delete_item(self, item_text): # /reset удаление данных Trello из БД
         stmt = "DELETE FROM tg1 WHERE chat_id = (?)"
